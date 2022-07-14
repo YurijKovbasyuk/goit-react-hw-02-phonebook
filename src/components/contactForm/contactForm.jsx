@@ -45,29 +45,35 @@ class ContactForm extends Component {
     return (
       <div className={styles.form}>
         <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleChangeName}
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            className={styles.input}
-            value={name}
-          />
+          <label htmlFor="">
+            Name
+            <input
+              onChange={this.handleChangeName}
+              type="text"
+              name="name"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+              className={styles.input}
+              value={name}
+            />
+          </label>
 
           <br />
 
-          <input
-            onChange={this.handleChangeTel}
-            type="tel"
-            name="number"
-            className={styles.input}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            value={number}
-          />
+          <label htmlFor="">
+            Phone
+            <input
+              onChange={this.handleChangeTel}
+              type="tel"
+              name="number"
+              className={styles.input}
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+              value={number}
+            />
+          </label>
 
           <br />
 

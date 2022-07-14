@@ -14,5 +14,5 @@
 
 .input:hover,
 .input:focus {
-  border: 3px solid blue;
+  border: 3px solid rgb(64, 234, 240);
 }
