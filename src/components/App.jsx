@@ -16,6 +16,9 @@ class App extends Component {
 
     filter: '',
   };
+  reset = () => {
+    this.setState({ number: '', name: '' });
+  };
 
   handleSubmit = (name, number) => {
     let loginInputId = nanoid();
@@ -25,6 +28,19 @@ class App extends Component {
         { id: loginInputId, name: name, number: number },
       ],
     }));
+  };
+
+  validationNameForm = e => {
+    e.preventDefault();
+
+    let bool = this.state.contacts.some(contact => {
+      return contact.name.toLowerCase() === e.target.name.value.toLowerCase();
+    });
+
+    if (!bool) {
+      this.handleSubmit(e.target.name.value, e.target.number.value);
+      this.reset();
+    } else alert(e.target.name.value + ' is already exists');
   };
 
   handleChange = e => {
@@ -50,7 +66,11 @@ class App extends Component {
     return (
       <div className={styles.app}>
         <h2>Phonebook</h2>
-        <ContactForm contacts={contacts} onSubmit={this.handleSubmit} />
+        <ContactForm
+          contacts={contacts}
+          onSubmit={this.handleSubmit}
+          onValidationNameForm={this.validationNameForm}
+        />
         <h2>Contacts</h2>
         <Filter onFilter={this.handleChange} filter={filter} />
         <ContactList

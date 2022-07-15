@@ -1,31 +1,26 @@
-import { Component } from 'react';
 import styles from './Contact.module.css';
 import PropTypes from 'prop-types';
 
-class Contact extends Component {
-  static propTypes = {
-    onDelete: PropTypes.func.isRequired,
-    number: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  };
-
-  render() {
-    const { id, number, name, onDelete } = this.props;
-    return (
-      <li className={styles.li}>
-        {name + ': ' + number}
-        <button
-          className={styles.button}
-          onClick={() => {
-            onDelete(id);
-          }}
-        >
-          Delete
-        </button>
-      </li>
-    );
-  }
+function Contact({ id, number, name, onDelete }) {
+  return (
+    <li className={styles.li}>
+      {name + ': ' + number}
+      <button
+        className={styles.button}
+        onClick={() => {
+          onDelete(id);
+        }}
+      >
+        Delete
+      </button>
+    </li>
+  );
 }
 
+Contact.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  number: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
 export default Contact;

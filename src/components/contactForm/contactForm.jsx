@@ -15,18 +15,7 @@ class ContactForm extends Component {
       })
     ),
     onSubmit: PropTypes.func.isRequired,
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    let bool = this.props.contacts.some(contact => {
-      return contact.name.toLowerCase() === this.state.name.toLowerCase();
-    });
-
-    if (!bool) {
-      this.props.onSubmit(this.state.name, this.state.number, this.reset);
-      this.reset();
-    } else alert(this.state.name + ' is already exists');
+    onValidationNameForm: PropTypes.func.isRequired,
   };
 
   reset = () => {
@@ -44,7 +33,10 @@ class ContactForm extends Component {
     const { name, number } = this.state;
     return (
       <div className={styles.form}>
-        <form onSubmit={this.handleSubmit}>
+        <form
+          onSubmit={this.props.onValidationNameForm}
+          onReset={() => this.reset()}
+        >
           <label htmlFor="">
             Name
             <input
@@ -58,9 +50,7 @@ class ContactForm extends Component {
               value={name}
             />
           </label>
-
           <br />
-
           <label htmlFor="">
             Phone
             <input
@@ -74,9 +64,7 @@ class ContactForm extends Component {
               value={number}
             />
           </label>
-
           <br />
-
           <button className={styles.button} type="submit">
             Submit
           </button>
