@@ -12,37 +12,41 @@ class ContactForm extends Component {
     contacts: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
       })
     ),
     onSubmit: PropTypes.func.isRequired,
-    onValidationNameForm: PropTypes.func.isRequired,
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.onSubmit(this.state);
+    this.reset();
   };
 
   reset = () => {
     this.setState({ number: '', name: '' });
   };
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.onValidationNameForm(e);
-    this.reset();
-  };
 
-  handleChangeName = e => {
-    this.setState({ name: e.target.value });
-  };
-  handleChangeTel = e => {
-    this.setState({ number: e.target.value });
+  handleChange = e => {
+    const { name, value } = e.currentTarget;
+
+    this.setState({
+      [name]: value,
+    });
   };
 
   render() {
     const { name, number } = this.state;
+
     return (
       <div className={styles.form}>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="">
             Name
             <input
-              onChange={this.handleChangeName}
+              onChange={this.handleChange}
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -56,7 +60,7 @@ class ContactForm extends Component {
           <label htmlFor="">
             Phone
             <input
-              onChange={this.handleChangeTel}
+              onChange={this.handleChange}
               type="tel"
               name="number"
               className={styles.input}

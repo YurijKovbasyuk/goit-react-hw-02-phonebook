@@ -13,28 +13,28 @@ class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-
     filter: '',
   };
 
-  handleSubmit = (name, number) => {
+  handleSubmit = ({ name, number }) => {
+    const { contacts } = this.state;
     let loginInputId = nanoid();
+
+    const normalizedName = name.toLowerCase();
+    const checkedForName = contacts.some(
+      contact => normalizedName === contact.name.toLowerCase()
+    );
+
+    if (checkedForName) {
+      return alert(`${name} is already in contacts`);
+    }
+
     this.setState(prevState => ({
       contacts: [
         ...prevState.contacts,
         { id: loginInputId, name: name, number: number },
       ],
     }));
-  };
-
-  validationNameForm = e => {
-    let bool = this.state.contacts.some(contact => {
-      return contact.name.toLowerCase() === e.target.name.value.toLowerCase();
-    });
-
-    if (!bool) {
-      this.handleSubmit(e.target.name.value, e.target.number.value);
-    } else alert(e.target.name.value + ' is already exists');
   };
 
   handleChange = e => {
@@ -57,16 +57,15 @@ class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
+
     return (
       <div className={styles.app}>
         <h2>Phonebook</h2>
-        <ContactForm
-          contacts={contacts}
-          onSubmit={this.handleSubmit}
-          onValidationNameForm={this.validationNameForm}
-        />
+        <ContactForm contacts={contacts} onSubmit={this.handleSubmit} />
+
         <h2>Contacts</h2>
         <Filter onFilter={this.handleChange} filter={filter} />
+
         <ContactList
           onDelete={this.handleDelete}
           onFilter={this.handleFilter}
