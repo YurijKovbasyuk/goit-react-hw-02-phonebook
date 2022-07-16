@@ -16,9 +16,6 @@ class App extends Component {
 
     filter: '',
   };
-  reset = () => {
-    this.setState({ number: '', name: '' });
-  };
 
   handleSubmit = (name, number) => {
     let loginInputId = nanoid();
@@ -31,15 +28,12 @@ class App extends Component {
   };
 
   validationNameForm = e => {
-    e.preventDefault();
-
     let bool = this.state.contacts.some(contact => {
       return contact.name.toLowerCase() === e.target.name.value.toLowerCase();
     });
 
     if (!bool) {
       this.handleSubmit(e.target.name.value, e.target.number.value);
-      this.reset();
     } else alert(e.target.name.value + ' is already exists');
   };
 

@@ -21,6 +21,11 @@ class ContactForm extends Component {
   reset = () => {
     this.setState({ number: '', name: '' });
   };
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.onValidationNameForm(e);
+    this.reset();
+  };
 
   handleChangeName = e => {
     this.setState({ name: e.target.value });
@@ -33,10 +38,7 @@ class ContactForm extends Component {
     const { name, number } = this.state;
     return (
       <div className={styles.form}>
-        <form
-          onSubmit={this.props.onValidationNameForm}
-          onReset={() => this.reset()}
-        >
+        <form onSubmit={this.handleSubmit}>
           <label htmlFor="">
             Name
             <input
